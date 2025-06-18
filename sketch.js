@@ -1,19 +1,15 @@
-// as teclas pra jogar são:
-// A = emoji de anjinho
-// S = pombinha branca
-// J = ogro cabeludo
-// K = emoji de demônio
-// L = emoji de duende vermelho
+// TECLAS DO JOGO:
+// A, S, J, K, L
 
 function setup() {
   createCanvas(400, 400);
 }
 
-let xJogador1 = 0;
-let xJogador2 = 0;
-let xJogador3 = 0;
-let xJogador4 = 0;
-let xJogador5 = 0;
+let xJogador = [0, 0, 0, 0, 0];
+let yJogador = [85, 145, 205, 265, 325];
+let jogador = ["😇", "🕊️", "👹", "😈", "👺"];
+let teclas = ["a", "s", "j", "k", "l"];
+let quantidade = jogador.length;
 
 function draw() {
   ativaJogo();
@@ -24,67 +20,43 @@ function draw() {
 
 function ativaJogo() {
   if (focused == true) {
-    background("#7DE1F0");
+    background("#D31616");
   } else {
-    background("rgb(252,46,46)");
+    background("#6A8DE5");
   }
 }
 
 function desenhaJogadores() {
   textSize(40);
-  text("😇", xJogador1, 50);
-  text("😈", xJogador2, 300);
-  text("👺", xJogador3, 380);
-  text("👹", xJogador4, 215);
-  text("🕊️", xJogador5, 130);
+  for (let i = 0; i < quantidade; i++) {
+    text(jogador[i], xJogador[i], yJogador[i]);
+  }
 }
 
 function desenhaLinhaDeChegada() {
+  fill("white");
   rect(350, 0, 10, 400);
+  fill("rgb(5,19,92)");
+  for (let yAtual = 0; yAtual < 400; yAtual += 20) {
+    rect(350, yAtual, 10, 10);
+  }
 }
 
 function verificaVencedor() {
-  if (xJogador1 > 350) {
-    fill('yellow');
-    text("O anjinho venceu!", 50, 200);
-    noLoop();
-  }
-  if (xJogador2 > 350) {
-    fill('red');
-    text("O satanás venceu!", 50, 200);
-    noLoop();
- }
-  if (xJogador3 > 350) {
-    text("O mal venceu!", 50, 200);
-    noLoop();
- }
-  if (xJogador4 > 350) {
-    text("O mal venceu!", 50, 200);
-    noLoop();
- }
-  if (xJogador5 > 350) {
-    fill('yellow');
-    text("A pomba venceu!", 50, 200);
-    noLoop();
+  for (let i = 0; i < quantidade; i++) {
+    if (xJogador[i] > 350) {
+      fill('yellow')
+      text(jogador[i] + "VENCEU!", 50, 200);
+      noLoop();
+    }
   }
 }
-
-// teclas do jogo na primeira linha de código
 
 function keyReleased() {
-  if (key == "a") {
-    xJogador1 += random(20);
-  }
-  if (key == "k") {
-    xJogador2 += random(20);
- }
-  if (key == "l") {
-    xJogador3 += random(20);
- }
-  if (key == "j") {
-    xJogador4 += random(20);
- }
-  if (key == "s") {
-    xJogador5 += random(20);
+  for (let i = 0; i < quantidade; i++) {
+    if (key == teclas[i]) {
+      xJogador[i] += random(20);
+    }
   }
 }
+
